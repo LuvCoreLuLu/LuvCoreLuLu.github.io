@@ -3,77 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎪 Welcome to My World! 🎈</title>
+    <title>🎪 LuvCoreLuLu 🎪</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Fredoka for clean rounded headings, Space Grotesk for crisp body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', sans-serif;
+        }
         body {
-            font-family: 'Fredoka', cursive, sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Subtle dark pastel carnival stripe background pattern */
+        .dark-circus-bg {
+            background-color: #121019;
+            background-image: repeating-linear-gradient(
+                45deg,
+                #121019,
+                #121019 35px,
+                #1a1726 35px,
+                #1a1726 70px
+            );
+        }
+
+        /* Subtle glowing border animation */
+        @keyframes soft-pulse {
+            0%, 100% { border-color: #6b3345; }
+            50% { border-color: #4c3761; }
+        }
+        .pulse-border {
+            animation: soft-pulse 4s infinite ease-in-out;
+        }
+
+        /* F9 Debug Mode Card Transition Animation */
+        @keyframes cardSwitchAnim {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(0.88) rotate(3deg); opacity: 0.6; filter: blur(2px); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0px); }
+        }
+        .card-flip-anim {
+            animation: cardSwitchAnim 0.5s ease-in-out;
+        }
+
+        /* Forced Mobile Layout Override (Debug Mode) */
+        .forced-mobile {
+            max-width: 28rem !important; /* max-w-md */
+        }
+        .forced-mobile .grid {
+            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        }
+        .forced-mobile .md\:col-span-5, 
+        .forced-mobile .md\:col-span-7 {
+            grid-column: span 1 / span 1 !important;
+        }
+        .forced-mobile .md\:text-left {
+            text-align: center !important;
+        }
+        .forced-mobile .md\:items-start {
+            align-items: center !important;
+        }
+        .forced-mobile .hidden.md\:flex {
+            display: none !important;
+        }
+        .forced-mobile .flex.md\:hidden {
+            display: flex !important;
         }
     </style>
 </head>
-<body class="bg-yellow-100 flex items-center justify-center min-h-screen p-4">
+<body class="dark-circus-bg min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-10 text-slate-200">
 
-    <div class="bg-pink-100 border-8 border-dashed border-red-400 rounded-[3rem] p-6 max-w-sm w-full text-center shadow-[0_10px_0_0_rgba(244,63,94,0.4)] transition-all">
+    <!-- MAIN RESPONSIVE CONTAINER CARD 
+         Mobile: Stacks vertically (max-w-md)
+         PC / Tablet: Expands horizontally (md:max-w-3xl lg:max-w-4xl) side-by-side
+    -->
+    <div id="main-card" class="relative w-full max-w-md md:max-w-3xl lg:max-w-4xl bg-[#1e1b2b]/95 backdrop-blur-md border-4 border-[#5e2d3e] pulse-border rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.6)] transition-all duration-300">
         
-        <div class="bg-yellow-300 text-red-500 font-bold px-4 py-1.5 rounded-full inline-block mb-4 text-lg tracking-wider border-4 border-yellow-400 shadow-md transform -rotate-2">
-            🎪 WELCOME! 🎈
+        <!-- DEBUG TOAST BANNER -->
+        <div id="debug-toast" class="hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-[#3b1c27] text-[#f2a6b4] text-xs font-mono font-bold px-3 py-1 rounded-full border border-[#7a3b4f] shadow-lg whitespace-nowrap">
+            🛠️ DEBUG MODE: FORCED MOBILE LAYOUT (F9)
         </div>
 
-        <div class="relative w-32 h-32 mx-auto mb-4">
-            <img class="w-full h-full object-cover rounded-full border-4 border-yellow-300 shadow-lg" 
-                 src="https://via.placeholder.com/150/FFB6C1/000000?text=Your+Pic" 
-                 alt="Profile Picture">
-            <span class="absolute bottom-0 right-0 bg-red-500 text-white p-2 rounded-full border-2 border-white text-xl animate-bounce">
-                🔴
-            </span>
+        <!-- TOP DECORATIVE BADGE -->
+        <div class="flex justify-center md:justify-start mb-6">
+            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-sm tracking-wider shadow-sm">
+                <span>🎪</span>
+                <span>WELCOME TO THE TENT</span>
+                <span>🎈</span>
+            </div>
         </div>
 
-        <h1 class="text-3xl font-extrabold text-red-500 drop-shadow-sm tracking-wide">
-            Your Name
-        </h1>
-        
-        <p class="text-purple-600 font-semibold text-sm mb-2">
-            ✨ she/they • circus enthusiast ✨
-        </p>
-
-        <div class="bg-white/80 rounded-2xl p-3 mb-6 border-2 border-pink-200 text-gray-700 text-sm">
-            Welcome to my circus tent! 🤡 I love silly art, retro gaming, and bright colors. 🍿✨
-        </div>
-
-        <div class="space-y-3">
+        <!-- GRID LAYOUT (Stacks on Mobile, Side-by-Side on PC/Tablet) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             
-            <a href="https://instagram.com" target="_blank" 
-               class="block bg-yellow-300 hover:bg-yellow-400 text-red-600 font-bold py-3 px-4 rounded-full border-4 border-yellow-400 shadow-[0_4px_0_0_rgba(239,68,68,1)] active:translate-y-1 active:shadow-none transition-all">
-               📸 Instagram
-            </a>
+            <!-- LEFT COLUMN: Profile Info & Bio (PC: 5 Cols / Mobile: Full Width) -->
+            <div class="md:col-span-5 text-center md:text-left flex flex-col items-center md:items-start">
+                
+                <!-- PROFILE AVATAR -->
+                <div class="relative w-32 h-32 md:w-36 md:h-36 mb-4">
+                    <img class="w-full h-full object-cover rounded-2xl border-2 border-[#804d60] shadow-md" 
+                         src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" 
+                         alt="Profile Picture">
+                    
+                    <!-- Dark Pastel Clown Badge Overlay -->
+                    <span class="absolute -bottom-2 -right-2 bg-[#3b1c27] text-[#f2a6b4] text-xl w-9 h-9 flex items-center justify-center rounded-xl border border-[#7a3b4f] shadow-sm">
+                        🤡
+                    </span>
+                </div>
 
-            <a href="https://twitter.com" target="_blank" 
-               class="block bg-blue-300 hover:bg-blue-400 text-blue-900 font-bold py-3 px-4 rounded-full border-4 border-blue-400 shadow-[0_4px_0_0_rgba(30,58,138,1)] active:translate-y-1 active:shadow-none transition-all">
-               🐦 Twitter / X
-            </a>
+                <!-- NAME & TITLE -->
+                <!-- ✏️ EDIT YOUR NAME HERE -->
+                <h1 class="text-3xl sm:text-4xl font-bold text-[#f2a6b4] tracking-wide">
+                    LuvCoreLuLu
+                </h1>
+                
+                <!-- ✏️ EDIT PRONOUNS / SUBTITLE HERE -->
+                <p class="text-[#c397d8] font-medium text-sm mt-1 mb-4">
+                    ✨ she/they • dark pastel ringmaster ✨
+                </p>
 
-            <a href="https://youtube.com" target="_blank" 
-               class="block bg-red-300 hover:bg-red-400 text-red-900 font-bold py-3 px-4 rounded-full border-4 border-red-400 shadow-[0_4px_0_0_rgba(153,27,27,1)] active:translate-y-1 active:shadow-none transition-all">
-               🎬 YouTube Channel
-            </a>
+                <!-- BIO BOX -->
+                <!-- ✏️ EDIT YOUR BIO HERE -->
+                <div class="bg-[#15131f] rounded-2xl p-4 border border-[#302a45] text-slate-300 text-sm leading-relaxed w-full text-left shadow-inner">
+                    Step into my quiet carnival! 🎪 Artist, pixel enthusiast, and lover of moody dark pastel clowncore aesthetics. Welcome to my personal corner of the web! 🍿🖤
+                </div>
 
-            <a href="mailto:your@email.com" 
-               class="block bg-purple-300 hover:bg-purple-400 text-purple-900 font-bold py-3 px-4 rounded-full border-4 border-purple-400 shadow-[0_4px_0_0_rgba(88,28,135,1)] active:translate-y-1 active:shadow-none transition-all">
-               💌 Contact Me
-            </a>
+                <!-- FOOTER DECORATION (Visible on PC side) -->
+                <div class="hidden md:flex items-center gap-2 mt-6 text-xs text-[#8d79a5] font-medium">
+                    <span>🍿</span>
+                    <span>Dark Circus Edition</span>
+                    <span>🎪</span>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Social Links List (PC: 7 Cols / Mobile: Full Width) -->
+            <div class="md:col-span-7 space-y-3.5 w-full">
+                
+                <!-- LINK 1: INSTAGRAM (EDITABLE) -->
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+                   class="group flex items-center justify-between bg-[#291a24] hover:bg-[#382230] text-[#f5b8c4] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#593043] shadow-sm hover:border-[#854562] transition-all duration-200">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl group-hover:scale-110 transition-transform">📸</span>
+                       <span>Instagram</span>
+                   </div>
+                   <span class="text-xs text-[#a3768b] group-hover:translate-x-1 transition-transform">↗</span>
+                </a>
+
+                <!-- LINK 2: TWITTER / X (EDITABLE) -->
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
+                   class="group flex items-center justify-between bg-[#192230] hover:bg-[#202d40] text-[#9bbfe8] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#304766] shadow-sm hover:border-[#466a99] transition-all duration-200">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl group-hover:scale-110 transition-transform">🐦</span>
+                       <span>Twitter / X</span>
+                   </div>
+                   <span class="text-xs text-[#6e8eb8] group-hover:translate-x-1 transition-transform">↗</span>
+                </a>
+
+                <!-- LINK 3: TIKTOK / VIDEOS (EDITABLE) -->
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" 
+                   class="group flex items-center justify-between bg-[#281b30] hover:bg-[#352340] text-[#d6a5f0] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#523366] shadow-sm hover:border-[#7b4d99] transition-all duration-200">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl group-hover:scale-110 transition-transform">🎬</span>
+                       <span>TikTok / Content</span>
+                   </div>
+                   <span class="text-xs text-[#9d72b5] group-hover:translate-x-1 transition-transform">↗</span>
+                </a>
+
+                <!-- LINK 4: DISCORD SERVER (EDITABLE) -->
+                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" 
+                   class="group flex items-center justify-between bg-[#1d262a] hover:bg-[#253238] text-[#9ee0cb] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#324f46] shadow-sm hover:border-[#487567] transition-all duration-200">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl group-hover:scale-110 transition-transform">💬</span>
+                       <span>Discord Community</span>
+                   </div>
+                   <span class="text-xs text-[#659e8d] group-hover:translate-x-1 transition-transform">↗</span>
+                </a>
+
+                <!-- LINK 5: EMAIL (EDITABLE) -->
+                <a href="mailto:your-email@example.com" 
+                   class="group flex items-center justify-between bg-[#29261a] hover:bg-[#363220] text-[#ebd288] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#544d30] shadow-sm hover:border-[#807548] transition-all duration-200">
+                   <div class="flex items-center gap-3">
+                       <span class="text-xl group-hover:scale-110 transition-transform">💌</span>
+                       <span>Contact Email</span>
+                   </div>
+                   <span class="text-xs text-[#a69760] group-hover:translate-x-1 transition-transform">✉</span>
+                </a>
+
+            </div>
 
         </div>
 
-        <div class="mt-6 text-xs text-pink-500 font-bold flex justify-center gap-2">
+        <!-- FOOTER DECORATION (Visible on Mobile) -->
+        <div class="mt-8 pt-4 border-t border-[#302a45] text-xs text-[#8d79a5] font-medium flex md:hidden justify-center items-center gap-2">
             <span>🍿</span>
+            <span>Dark Circus Edition</span>
             <span>🎪</span>
-            <span>🎨</span>
-            <span>🎈</span>
-            <span>⭐</span>
         </div>
 
     </div>
+
+    <!-- DEBUG TOGGLE SCRIPT (F9 KEY) -->
+    <script>
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F9') {
+                e.preventDefault();
+                const card = document.getElementById('main-card');
+                const toast = document.getElementById('debug-toast');
+                
+                // Trigger transition animation
+                card.classList.add('card-flip-anim');
+                
+                // Toggle mode halfway through the animation
+                setTimeout(() => {
+                    const isForced = card.classList.toggle('forced-mobile');
+                    if (toast) {
+                        toast.classList.toggle('hidden', !isForced);
+                    }
+                }, 250);
+
+                // Remove animation class after completion
+                setTimeout(() => {
+                    card.classList.remove('card-flip-anim');
+                }, 500);
+            }
+        });
+    </script>
 
 </body>
 </html>
