@@ -50,10 +50,10 @@
             animation: switchAnim 0.35s ease-in-out;
         }
 
-        /* Equalizer bar animation */
+        /* Mini equalizer bar animation */
         @keyframes eq-bar {
-            0%, 100% { height: 4px; }
-            50% { height: 16px; }
+            0%, 100% { height: 3px; }
+            50% { height: 12px; }
         }
         .animate-eq-1 { animation: eq-bar 0.8s ease-in-out infinite; }
         .animate-eq-2 { animation: eq-bar 1.1s ease-in-out infinite 0.2s; }
@@ -68,61 +68,56 @@
     </div>
 
     <!-- MAIN RESPONSIVE CONTAINER CARD -->
-    <div id="main-card" class="relative w-full max-w-md md:max-w-3xl lg:max-w-4xl bg-[#1e1b2b]/95 backdrop-blur-md border-4 border-[#5e2d3e] pulse-border rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.6)] transition-all duration-300">
+    <div id="main-card" class="relative w-full max-w-md md:max-w-3xl lg:max-w-4xl bg-[#1e1b2b]/95 backdrop-blur-md border-4 border-[#5e2d3e] pulse-border rounded-3xl p-5 sm:p-7 md:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.6)] transition-all duration-300">
         
-        <!-- SPOTIFY LIVE WIDGET -->
-        <div class="mb-6 bg-[#15131f] border border-[#302a45] rounded-2xl p-3.5 sm:p-4 shadow-inner">
-            <div class="flex items-center justify-between mb-2">
-                <div class="flex items-center gap-2 text-xs font-heading text-[#9ee0cb]">
-                    <span class="relative flex h-2 w-2">
-                        <span id="spotify-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1db954] opacity-75"></span>
-                        <span id="spotify-dot" class="relative inline-flex rounded-full h-2 w-2 bg-[#1db954]"></span>
-                    </span>
-                    <span id="spotify-status-header">ON SPOTIFY NOW</span>
-                </div>
-                
-                <!-- Equalizer animation -->
-                <div id="eq-container" class="flex items-end gap-1 h-4">
-                    <span class="w-1 bg-[#1db954] rounded-full animate-eq-1"></span>
-                    <span class="w-1 bg-[#1db954] rounded-full animate-eq-2"></span>
-                    <span class="w-1 bg-[#1db954] rounded-full animate-eq-3"></span>
+        <!-- HEADER ROW: BADGE + SLEEK COMPACT SPOTIFY WIDGET -->
+        <div id="header-row" class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 border-b border-[#302a45]/60 pb-4">
+            
+            <!-- TOP DECORATIVE BADGE -->
+            <div id="badge-container" class="flex justify-center sm:justify-start w-full sm:w-auto">
+                <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-xs sm:text-sm tracking-wider shadow-sm">
+                    <span>🎪</span>
+                    <span>WELCOME TO THE TENT</span>
+                    <span>🎈</span>
                 </div>
             </div>
 
-            <!-- Track Info Container -->
-            <div class="flex items-center gap-3 min-w-0">
-                <img id="spotify-album-art" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=150&q=80" 
-                     alt="Album Art" class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-[#443b61] flex-shrink-0">
+            <!-- SLEEK MINI SPOTIFY WIDGET -->
+            <div id="spotify-widget" class="flex items-center gap-3 bg-[#15131f] border border-[#302a45] rounded-2xl px-3.5 py-2 shadow-inner w-full sm:w-auto max-w-full sm:max-w-xs transition-all">
+                <img id="spotify-album-art" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=100&q=80" 
+                     alt="Album Art" class="w-8 h-8 rounded-lg object-cover border border-[#443b61] flex-shrink-0">
                 
                 <div class="flex-1 min-w-0">
-                    <h4 id="spotify-track" class="text-slate-100 font-heading font-semibold text-sm sm:text-base truncate">
-                        Not listening to Spotify
-                    </h4>
-                    <p id="spotify-artist" class="text-slate-400 text-xs sm:text-sm truncate">
-                        Discord status idle
-                    </p>
-                    
-                    <!-- Progress Bar -->
-                    <div id="spotify-progress-container" class="w-full bg-[#262136] h-1.5 rounded-full mt-2 overflow-hidden hidden">
-                        <div id="spotify-progress-bar" class="bg-[#1db954] h-full w-0 transition-all duration-300"></div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="relative flex h-2 w-2 flex-shrink-0">
+                            <span id="spotify-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1db954] opacity-75 hidden"></span>
+                            <span id="spotify-dot" class="relative inline-flex rounded-full h-2 w-2 bg-slate-500"></span>
+                        </span>
+                        <span id="spotify-status-header" class="text-[10px] font-heading font-semibold uppercase tracking-wider text-slate-400 truncate">Spotify Offline</span>
+                        
+                        <!-- Mini Equalizer -->
+                        <div id="eq-container" class="hidden flex items-end gap-0.5 h-3 ml-auto">
+                            <span class="w-0.5 bg-[#1db954] rounded-full animate-eq-1"></span>
+                            <span class="w-0.5 bg-[#1db954] rounded-full animate-eq-2"></span>
+                            <span class="w-0.5 bg-[#1db954] rounded-full animate-eq-3"></span>
+                        </div>
                     </div>
+                    
+                    <h4 id="spotify-track" class="text-slate-200 font-heading font-semibold text-xs truncate leading-tight mt-0.5">
+                        Not listening right now
+                    </h4>
+                    <p id="spotify-artist" class="text-slate-400 text-[11px] truncate leading-tight hidden">
+                        --
+                    </p>
                 </div>
 
                 <a id="spotify-link" href="#" target="_blank" rel="noopener noreferrer" 
-                   class="hidden sm:flex flex-shrink-0 bg-[#262136] hover:bg-[#342d4a] text-xs text-[#c397d8] font-heading px-3 py-2 rounded-xl border border-[#473b66] transition-all items-center gap-1">
-                    <span>Listen</span>
-                    <span>↗</span>
+                   title="Listen on Spotify"
+                   class="hidden flex-shrink-0 bg-[#262136] hover:bg-[#342d4a] text-[#1db954] font-heading text-xs px-2 py-1 rounded-lg border border-[#473b66] transition-all">
+                    ↗
                 </a>
             </div>
-        </div>
 
-        <!-- TOP DECORATIVE BADGE -->
-        <div id="badge-container" class="flex justify-center md:justify-start mb-6">
-            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-sm tracking-wider shadow-sm">
-                <span>🎪</span>
-                <span>WELCOME TO THE TENT</span>
-                <span>🎈</span>
-            </div>
         </div>
 
         <!-- GRID LAYOUT -->
@@ -232,19 +227,22 @@
 
     <!-- JAVASCRIPT: LANYARD SPOTIFY API + F9 DEBUG TOGGLE -->
     <script>
-        // 1. LIVE SPOTIFY SYNC (LANYARD API)
+        // Note: For live Discord/Spotify presence sync, ensure the Discord user ID is joined to Lanyard (https://discord.gg/lanyard)
         const DISCORD_ID = "1496596136734228665";
-        let progressInterval = null;
 
         async function fetchLanyardData() {
             try {
                 const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+                if (!res.ok) throw new Error("API response not ok");
                 const data = await res.json();
                 if (data.success && data.data) {
                     updateSpotifyUI(data.data);
+                } else {
+                    setOfflineUI();
                 }
             } catch (e) {
                 console.log("Lanyard fetch error:", e);
+                setOfflineUI();
             }
         }
 
@@ -257,70 +255,87 @@
             const dotEl = document.getElementById("spotify-dot");
             const eqEl = document.getElementById("eq-container");
             const linkEl = document.getElementById("spotify-link");
-            const progressContainer = document.getElementById("spotify-progress-container");
-            const progressBar = document.getElementById("spotify-progress-bar");
 
-            if (lanyard.listening_to_spotify && lanyard.spotify) {
+            if (lanyard && lanyard.listening_to_spotify && lanyard.spotify) {
                 const spot = lanyard.spotify;
-                trackEl.textContent = spot.song;
-                artistEl.textContent = spot.artist;
-                albumArtEl.src = spot.album_art_url;
-                statusHeaderEl.textContent = "LISTENING TO SPOTIFY";
+                trackEl.textContent = spot.song || "Listening on Spotify";
                 
-                pulseEl.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1db954] opacity-75";
+                if (spot.artist) {
+                    artistEl.textContent = spot.artist;
+                    artistEl.classList.remove("hidden");
+                } else {
+                    artistEl.classList.add("hidden");
+                }
+
+                if (spot.album_art_url) {
+                    albumArtEl.src = spot.album_art_url;
+                }
+                
+                statusHeaderEl.textContent = "Listening Now";
+                statusHeaderEl.classList.replace("text-slate-400", "text-[#1db954]");
+                
+                pulseEl.classList.remove("hidden");
                 dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-[#1db954]";
-                eqEl.style.opacity = "1";
+                eqEl.classList.remove("hidden");
                 
                 if (spot.track_id) {
                     linkEl.href = `https://open.spotify.com/track/${spot.track_id}`;
                     linkEl.classList.remove("hidden");
+                } else {
+                    linkEl.classList.add("hidden");
                 }
-
-                progressContainer.classList.remove("hidden");
-                
-                if (progressInterval) clearInterval(progressInterval);
-                progressInterval = setInterval(() => {
-                    const now = Date.now();
-                    const total = spot.timestamps.end - spot.timestamps.start;
-                    const elapsed = now - spot.timestamps.start;
-                    const percent = Math.min(100, Math.max(0, (elapsed / total) * 100));
-                    progressBar.style.width = `${percent}%`;
-                }, 1000);
-
             } else {
-                if (progressInterval) clearInterval(progressInterval);
-                trackEl.textContent = "Not listening right now";
-                artistEl.textContent = "Spotify offline / paused";
-                albumArtEl.src = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=150&q=80";
-                statusHeaderEl.textContent = "SPOTIFY IDLE";
-                
-                pulseEl.className = "hidden";
-                dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-slate-500";
-                eqEl.style.opacity = "0.2";
-                linkEl.classList.add("hidden");
-                progressContainer.classList.add("hidden");
+                setOfflineUI();
             }
         }
 
-        // Connect via WebSocket for real-time updates
+        function setOfflineUI() {
+            const trackEl = document.getElementById("spotify-track");
+            const artistEl = document.getElementById("spotify-artist");
+            const albumArtEl = document.getElementById("spotify-album-art");
+            const statusHeaderEl = document.getElementById("spotify-status-header");
+            const pulseEl = document.getElementById("spotify-pulse");
+            const dotEl = document.getElementById("spotify-dot");
+            const eqEl = document.getElementById("eq-container");
+            const linkEl = document.getElementById("spotify-link");
+
+            trackEl.textContent = "Not listening right now";
+            artistEl.classList.add("hidden");
+            albumArtEl.src = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=100&q=80";
+            statusHeaderEl.textContent = "Spotify Offline";
+            statusHeaderEl.className = "text-[10px] font-heading font-semibold uppercase tracking-wider text-slate-400 truncate";
+            
+            pulseEl.classList.add("hidden");
+            dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-slate-500";
+            eqEl.classList.add("hidden");
+            linkEl.classList.add("hidden");
+        }
+
+        // Connect via WebSocket for real-time presence updates
         function connectLanyardWS() {
-            const ws = new WebSocket("wss://api.lanyard.rest/socket");
-            ws.onopen = () => {
-                ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
-            };
-            ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-                    updateSpotifyUI(data.d);
-                }
-            };
-            ws.onclose = () => setTimeout(connectLanyardWS, 5000);
+            try {
+                const ws = new WebSocket("wss://api.lanyard.rest/socket");
+                ws.onopen = () => {
+                    ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+                };
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
+                        updateSpotifyUI(data.d);
+                    }
+                };
+                ws.onerror = () => setOfflineUI();
+                ws.onclose = () => setTimeout(connectLanyardWS, 10000);
+            } catch(e) {
+                console.log("WS Error:", e);
+                setOfflineUI();
+            }
         }
 
         fetchLanyardData();
         connectLanyardWS();
 
-        // 2. F9 DEBUG LAYOUT TOGGLE
+        // F9 DEBUG LAYOUT TOGGLE
         let isForcedMobile = false;
 
         window.addEventListener("keydown", (e) => {
@@ -344,7 +359,7 @@
                     card.classList.remove("md:max-w-3xl", "lg:max-w-4xl");
                     grid.classList.remove("md:grid-cols-12");
                     leftCol.classList.remove("md:col-span-5", "md:text-left", "md:items-start");
-                    badgeContainer.classList.remove("md:justify-start");
+                    badgeContainer.classList.remove("sm:justify-start");
                     badgeContainer.classList.add("justify-center");
                     pcFooter.classList.add("hidden");
                     mobileFooter.classList.remove("hidden");
@@ -353,7 +368,7 @@
                     card.classList.add("md:max-w-3xl", "lg:max-w-4xl");
                     grid.classList.add("md:grid-cols-12");
                     leftCol.classList.add("md:col-span-5", "md:text-left", "md:items-start");
-                    badgeContainer.classList.add("md:justify-start");
+                    badgeContainer.classList.add("sm:justify-start");
                     pcFooter.classList.remove("hidden");
                     mobileFooter.classList.add("hidden");
                 }
