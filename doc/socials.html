@@ -41,51 +41,43 @@
 </head>
 <body class="dark-circus-bg min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-10 text-slate-200">
 
-    <!-- MAIN SOCIALS CONTAINER -->
-    <div class="relative w-full max-w-md bg-[#1e1b2b]/95 backdrop-blur-md border-4 border-[#5e2d3e] pulse-border rounded-3xl p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.6)]">
+    <div class="relative w-full max-w-md bg-[#1e1b2b]/95 backdrop-blur-md border-4 border-[#5e2d3e] pulse-border rounded-3xl p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.6)] transition-all">
         
-        <!-- BACK TO HOME BUTTON -->
-        <a href="../index.html" class="inline-flex items-center gap-2 bg-[#15131f] hover:bg-[#251f36] text-[#c397d8] text-xs font-bold px-3 py-1.5 rounded-xl border border-[#352c4a] mb-6 transition-colors">
-            ← Back to Tent
-        </a>
+        <!-- BACK BUTTON TO MAIN TENT -->
+        <div class="flex items-center justify-between mb-6">
+            <a href="../index.html" class="inline-flex items-center gap-2 bg-[#2d1b27] hover:bg-[#3d2435] text-[#f2a6b4] font-heading font-semibold px-4 py-2 rounded-full border border-[#6b3345] text-xs sm:text-sm tracking-wider shadow-sm transition-all">
+                <span>👈</span>
+                <span>Back to Tent</span>
+            </a>
+            <span class="text-xl">🤡</span>
+        </div>
 
         <!-- HEADER TITLE -->
         <div class="text-center mb-6">
-            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-xs tracking-wider shadow-sm mb-3">
-                <span>🤡</span>
-                <span>MY SOCIAL NETWORKS</span>
-                <span>🎪</span>
-            </div>
-            <h1 class="text-3xl font-bold text-[#f2a6b4]">Connect With Me</h1>
-            <p class="text-xs text-[#c397d8] mt-1">Find all my official social profiles below!</p>
+            <h1 class="text-3xl font-bold text-[#f2a6b4] tracking-wide">
+                Social Hub
+            </h1>
+            <p class="text-[#c397d8] font-medium text-xs sm:text-sm mt-1">
+                ✨ Catch me around the web ✨
+            </p>
         </div>
 
-        <!-- SOCIAL LINKS LIST -->
-        <div class="space-y-3.5">
+        <!-- REORDERED SOCIAL LINKS LIST -->
+        <div class="space-y-3.5 w-full">
             
-            <!-- INSTAGRAM -->
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between bg-[#291a24] hover:bg-[#382230] text-[#f5b8c4] font-heading font-medium text-base py-3.5 px-5 rounded-2xl border border-[#593043] shadow-sm hover:border-[#854562] transition-all duration-200">
+            <!-- 1. TWITCH -->
+            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" 
+               class="group flex items-center justify-between bg-[#241a35] hover:bg-[#32234a] text-[#cda5f0] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#4b336e] shadow-sm hover:border-[#734eb0] transition-all duration-200">
                <div class="flex items-center gap-3">
-                   <span class="text-xl group-hover:scale-110 transition-transform">📸</span>
-                   <span>Instagram</span>
+                   <span class="text-xl group-hover:scale-110 transition-transform">👾</span>
+                   <span>Twitch</span>
                </div>
-               <span class="text-xs text-[#a3768b] group-hover:translate-x-1 transition-transform">↗</span>
+               <span class="text-xs text-[#9c77c4] group-hover:translate-x-1 transition-transform">↗</span>
             </a>
 
-            <!-- TWITTER / X -->
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between bg-[#192230] hover:bg-[#202d40] text-[#9bbfe8] font-heading font-medium text-base py-3.5 px-5 rounded-2xl border border-[#304766] shadow-sm hover:border-[#466a99] transition-all duration-200">
-               <div class="flex items-center gap-3">
-                   <span class="text-xl group-hover:scale-110 transition-transform">🐦</span>
-                   <span>Twitter / X</span>
-               </div>
-               <span class="text-xs text-[#6e8eb8] group-hover:translate-x-1 transition-transform">↗</span>
-            </a>
-
-            <!-- TIKTOK -->
+            <!-- 2. TIKTOK -->
             <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between bg-[#281b30] hover:bg-[#352340] text-[#d6a5f0] font-heading font-medium text-base py-3.5 px-5 rounded-2xl border border-[#523366] shadow-sm hover:border-[#7b4d99] transition-all duration-200">
+               class="group flex items-center justify-between bg-[#281b30] hover:bg-[#352340] text-[#d6a5f0] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#523366] shadow-sm hover:border-[#7b4d99] transition-all duration-200">
                <div class="flex items-center gap-3">
                    <span class="text-xl group-hover:scale-110 transition-transform">🎬</span>
                    <span>TikTok</span>
@@ -93,41 +85,53 @@
                <span class="text-xs text-[#9d72b5] group-hover:translate-x-1 transition-transform">↗</span>
             </a>
 
-            <!-- DISCORD -->
+            <!-- 3. YOUTUBE -->
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" 
+               class="group flex items-center justify-between bg-[#2b181e] hover:bg-[#3b2029] text-[#f5a4b3] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#592c3a] shadow-sm hover:border-[#854156] transition-all duration-200">
+               <div class="flex items-center gap-3">
+                   <span class="text-xl group-hover:scale-110 transition-transform">📺</span>
+                   <span>YouTube</span>
+               </div>
+               <span class="text-xs text-[#a87481] group-hover:translate-x-1 transition-transform">↗</span>
+            </a>
+
+            <!-- 4. TWITTER -->
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
+               class="group flex items-center justify-between bg-[#192230] hover:bg-[#202d40] text-[#9bbfe8] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#304766] shadow-sm hover:border-[#466a99] transition-all duration-200">
+               <div class="flex items-center gap-3">
+                   <span class="text-xl group-hover:scale-110 transition-transform">🐦</span>
+                   <span>Twitter / X</span>
+               </div>
+               <span class="text-xs text-[#6e8eb8] group-hover:translate-x-1 transition-transform">↗</span>
+            </a>
+
+            <!-- 5. DISCORD -->
             <a href="https://discord.com" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between bg-[#1d262a] hover:bg-[#253238] text-[#9ee0cb] font-heading font-medium text-base py-3.5 px-5 rounded-2xl border border-[#324f46] shadow-sm hover:border-[#487567] transition-all duration-200">
+               class="group flex items-center justify-between bg-[#1d262a] hover:bg-[#253238] text-[#9ee0cb] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#324f46] shadow-sm hover:border-[#487567] transition-all duration-200">
                <div class="flex items-center gap-3">
                    <span class="text-xl group-hover:scale-110 transition-transform">💬</span>
-                   <span>Discord Server</span>
+                   <span>Discord</span>
                </div>
                <span class="text-xs text-[#659e8d] group-hover:translate-x-1 transition-transform">↗</span>
             </a>
 
-            <!-- TWITCH -->
-            <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" 
-               class="group flex items-center justify-between bg-[#241a2e] hover:bg-[#30213d] text-[#c9a5f0] font-heading font-medium text-base py-3.5 px-5 rounded-2xl border border-[#48335c] shadow-sm hover:border-[#6a4c87] transition-all duration-200">
-               <div class="flex items-center gap-3">
-                   <span class="text-xl group-hover:scale-110 transition-transform">👾</span>
-                   <span>Twitch Streams</span>
-               </div>
-               <span class="text-xs text-[#8c6da6] group-hover:translate-x-1 transition-transform">↗</span>
-            </a>
-
-            <!-- EMAIL -->
+            <!-- 6. MAIL -->
             <a href="mailto:your-email@example.com" 
-               class="group flex items-center justify-between bg-[#29261a] hover:bg-[#363220] text-[#ebd288] font-heading font-medium text-base py-3.5 px-5 rounded-2xl border border-[#544d30] shadow-sm hover:border-[#807548] transition-all duration-200">
+               class="group flex items-center justify-between bg-[#29261a] hover:bg-[#363220] text-[#ebd288] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#544d30] shadow-sm hover:border-[#807548] transition-all duration-200">
                <div class="flex items-center gap-3">
                    <span class="text-xl group-hover:scale-110 transition-transform">💌</span>
-                   <span>Contact Email</span>
+                   <span>Mail</span>
                </div>
                <span class="text-xs text-[#a69760] group-hover:translate-x-1 transition-transform">✉</span>
             </a>
 
         </div>
 
-        <!-- FOOTER -->
-        <div class="mt-8 pt-4 border-t border-[#302a45] text-xs text-[#8d79a5] font-medium text-center">
-            <span>🎪 Dark Circus Edition • Social Hub 🍿</span>
+        <!-- FOOTER DECORATION -->
+        <div class="mt-8 pt-4 border-t border-[#302a45] text-xs text-[#8d79a5] font-medium flex justify-center items-center gap-2">
+            <span>🍿</span>
+            <span>© 2026 LuvCore</span>
+            <span>🎪</span>
         </div>
 
     </div>
