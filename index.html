@@ -6,7 +6,7 @@
     <title>🎪 LuvCoreLuLu 🎪</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Fredoka for clean rounded headings, Space Grotesk for crisp body text -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -40,118 +40,96 @@
             animation: soft-pulse 4s infinite ease-in-out;
         }
 
-        /* F9 Debug Mode Card Transition Animation */
-        @keyframes cardSwitchAnim {
-            0% { transform: scale(1) rotate(0deg); opacity: 1; }
-            50% { transform: scale(0.88) rotate(3deg); opacity: 0.6; filter: blur(2px); }
+        /* F9 Debug animation */
+        @keyframes switchAnim {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0px); }
+            50% { transform: scale(0.92) rotate(1.5deg); opacity: 0.6; filter: blur(2px); }
             100% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0px); }
         }
-        .card-flip-anim {
-            animation: cardSwitchAnim 0.5s ease-in-out;
+        .animate-switch {
+            animation: switchAnim 0.35s ease-in-out;
         }
 
-        /* Forced Mobile Layout Override (Debug Mode) */
-        .forced-mobile {
-            max-width: 28rem !important; /* max-w-md */
+        /* Equalizer bar animation */
+        @keyframes eq-bar {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
         }
-        .forced-mobile .grid {
-            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-        }
-        .forced-mobile .md\:col-span-5, 
-        .forced-mobile .md\:col-span-7 {
-            grid-column: span 1 / span 1 !important;
-        }
-        .forced-mobile .md\:text-left {
-            text-align: center !important;
-        }
-        .forced-mobile .md\:items-start {
-            align-items: center !important;
-        }
-        .forced-mobile .hidden.md\:flex {
-            display: none !important;
-        }
-        .forced-mobile .flex.md\:hidden {
-            display: flex !important;
-        }
+        .animate-eq-1 { animation: eq-bar 0.8s ease-in-out infinite; }
+        .animate-eq-2 { animation: eq-bar 1.1s ease-in-out infinite 0.2s; }
+        .animate-eq-3 { animation: eq-bar 0.7s ease-in-out infinite 0.4s; }
     </style>
 </head>
-<body class="dark-circus-bg min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-10 text-slate-200">
+<body class="dark-circus-bg min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 lg:p-10 text-slate-200">
 
-    <!-- MAIN RESPONSIVE CONTAINER CARD 
-         Mobile: Stacks vertically (max-w-md)
-         PC / Tablet: Expands horizontally (md:max-w-3xl lg:max-w-4xl) side-by-side
-    -->
+    <!-- DEBUG MODE INDICATOR BADGE -->
+    <div id="debug-badge" class="hidden mb-3 px-3 py-1 bg-amber-900/80 text-amber-200 border border-amber-600 rounded-full text-xs font-mono">
+        🛠️ DEBUG MODE: FORCED MOBILE VIEW (F9)
+    </div>
+
+    <!-- MAIN RESPONSIVE CONTAINER CARD -->
     <div id="main-card" class="relative w-full max-w-md md:max-w-3xl lg:max-w-4xl bg-[#1e1b2b]/95 backdrop-blur-md border-4 border-[#5e2d3e] pulse-border rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_12px_40px_rgba(0,0,0,0.6)] transition-all duration-300">
         
-        <!-- DEBUG TOAST BANNER -->
-        <div id="debug-toast" class="hidden absolute -top-10 left-1/2 -translate-x-1/2 bg-[#3b1c27] text-[#f2a6b4] text-xs font-mono font-bold px-3 py-1 rounded-full border border-[#7a3b4f] shadow-lg whitespace-nowrap">
-            🛠️ DEBUG MODE: FORCED MOBILE LAYOUT (F9)
+        <!-- SPOTIFY LIVE WIDGET -->
+        <div class="mb-6 bg-[#15131f] border border-[#302a45] rounded-2xl p-3.5 sm:p-4 shadow-inner">
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2 text-xs font-heading text-[#9ee0cb]">
+                    <span class="relative flex h-2 w-2">
+                        <span id="spotify-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1db954] opacity-75"></span>
+                        <span id="spotify-dot" class="relative inline-flex rounded-full h-2 w-2 bg-[#1db954]"></span>
+                    </span>
+                    <span id="spotify-status-header">ON SPOTIFY NOW</span>
+                </div>
+                
+                <!-- Equalizer animation -->
+                <div id="eq-container" class="flex items-end gap-1 h-4">
+                    <span class="w-1 bg-[#1db954] rounded-full animate-eq-1"></span>
+                    <span class="w-1 bg-[#1db954] rounded-full animate-eq-2"></span>
+                    <span class="w-1 bg-[#1db954] rounded-full animate-eq-3"></span>
+                </div>
+            </div>
+
+            <!-- Track Info Container -->
+            <div class="flex items-center gap-3 min-w-0">
+                <img id="spotify-album-art" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=150&q=80" 
+                     alt="Album Art" class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-[#443b61] flex-shrink-0">
+                
+                <div class="flex-1 min-w-0">
+                    <h4 id="spotify-track" class="text-slate-100 font-heading font-semibold text-sm sm:text-base truncate">
+                        Not listening to Spotify
+                    </h4>
+                    <p id="spotify-artist" class="text-slate-400 text-xs sm:text-sm truncate">
+                        Discord status idle
+                    </p>
+                    
+                    <!-- Progress Bar -->
+                    <div id="spotify-progress-container" class="w-full bg-[#262136] h-1.5 rounded-full mt-2 overflow-hidden hidden">
+                        <div id="spotify-progress-bar" class="bg-[#1db954] h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <a id="spotify-link" href="#" target="_blank" rel="noopener noreferrer" 
+                   class="hidden sm:flex flex-shrink-0 bg-[#262136] hover:bg-[#342d4a] text-xs text-[#c397d8] font-heading px-3 py-2 rounded-xl border border-[#473b66] transition-all items-center gap-1">
+                    <span>Listen</span>
+                    <span>↗</span>
+                </a>
+            </div>
         </div>
 
-        <!-- HEADER TOP SECTION: BADGE + SPOTIFY WIDGET -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
-            <!-- TOP DECORATIVE BADGE -->
-            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-xs sm:text-sm tracking-wider shadow-sm flex-shrink-0">
+        <!-- TOP DECORATIVE BADGE -->
+        <div id="badge-container" class="flex justify-center md:justify-start mb-6">
+            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-sm tracking-wider shadow-sm">
                 <span>🎪</span>
                 <span>WELCOME TO THE TENT</span>
                 <span>🎈</span>
             </div>
-
-            <!-- LIVE SPOTIFY WIDGET (LANYARD INTEGRATION) -->
-            <div id="spotify-widget" class="w-full sm:w-auto sm:max-w-xs md:max-w-sm bg-[#15131f] border border-[#352c4a] rounded-2xl p-2.5 sm:p-3 shadow-inner transition-all duration-300">
-                <!-- ACTIVE PLAYING STATE -->
-                <div id="spotify-active" class="hidden flex-col gap-2">
-                    <div class="flex items-center justify-between gap-2.5">
-                        <div class="flex items-center gap-2.5 min-w-0 flex-1">
-                            <div class="relative flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11">
-                                <img id="spotify-album-art" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover border border-[#48375e]" src="" alt="Album Art">
-                                <div class="absolute -bottom-1 -right-1 bg-[#121019] text-[#9ee0cb] text-xs p-0.5 rounded-full border border-[#352c4a]">
-                                    <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.377 0 12s5.376 12 12 12 12-5.377 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-                                </div>
-                            </div>
-                            <div class="min-w-0 text-left flex-1">
-                                <div class="flex items-center gap-1.5">
-                                    <span class="text-[9px] font-bold uppercase tracking-wider text-[#9ee0cb] bg-[#1d332c] px-1.5 py-0.5 rounded-full border border-[#2d5247] whitespace-nowrap">Spotify</span>
-                                    <!-- Equalizer animation -->
-                                    <div class="flex items-end gap-0.5 h-2.5">
-                                        <span class="w-0.5 bg-[#9ee0cb] rounded-full animate-bounce h-full" style="animation-duration:0.6s"></span>
-                                        <span class="w-0.5 bg-[#9ee0cb] rounded-full animate-bounce h-2/3" style="animation-duration:0.8s"></span>
-                                        <span class="w-0.5 bg-[#9ee0cb] rounded-full animate-bounce h-4/5" style="animation-duration:0.5s"></span>
-                                    </div>
-                                </div>
-                                <div id="spotify-track-title" class="text-xs font-bold text-[#f2a6b4] truncate mt-0.5 max-w-[150px] sm:max-w-[160px]">Song Title</div>
-                                <div id="spotify-artist-name" class="text-[11px] text-[#c397d8] truncate max-w-[150px] sm:max-w-[160px]">Artist Name</div>
-                            </div>
-                        </div>
-                        <a id="spotify-link" href="#" target="_blank" rel="noopener noreferrer" title="Open in Spotify" class="flex-shrink-0 text-[#8d79a5] hover:text-[#9ee0cb] transition-colors p-1.5 bg-[#1e1b2b] rounded-lg border border-[#302a45]">
-                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.377 0 12s5.376 12 12 12 12-5.377 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-                        </a>
-                    </div>
-                    <!-- Live Track Progress Bar -->
-                    <div class="w-full bg-[#1e1b2b] rounded-full h-1 overflow-hidden border border-[#302a45]">
-                        <div id="spotify-progress" class="bg-gradient-to-r from-[#9ee0cb] to-[#f2a6b4] h-full rounded-full transition-all duration-300 w-0"></div>
-                    </div>
-                </div>
-
-                <!-- IDLE / NOT LISTENING STATE -->
-                <div id="spotify-idle" class="flex items-center justify-between gap-3 text-xs text-[#8d79a5] py-0.5 px-1.5">
-                    <div class="flex items-center gap-2 min-w-0">
-                        <span class="text-base flex-shrink-0">🎧</span>
-                        <div class="text-left min-w-0">
-                            <p class="font-medium text-slate-300 text-[11px] truncate">Not playing Spotify right now</p>
-                            <p class="text-[9px] text-[#6d5b85] truncate">Connected via Discord Lanyard</p>
-                        </div>
-                    </div>
-                    <div class="w-2 h-2 rounded-full bg-[#4a3d61] animate-pulse flex-shrink-0"></div>
-                </div>
-            </div>
         </div>
 
-        <!-- GRID LAYOUT (Stacks on Mobile, Side-by-Side on PC/Tablet) -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <!-- GRID LAYOUT -->
+        <div id="grid-layout" class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             
-            <!-- LEFT COLUMN: Profile Info & Bio (PC: 5 Cols / Mobile: Full Width) -->
-            <div class="md:col-span-5 text-center md:text-left flex flex-col items-center md:items-start">
+            <!-- LEFT COLUMN: Profile Info & Bio -->
+            <div id="left-col" class="md:col-span-5 text-center md:text-left flex flex-col items-center md:items-start">
                 
                 <!-- PROFILE AVATAR -->
                 <div class="relative w-32 h-32 md:w-36 md:h-36 mb-4">
@@ -159,71 +137,67 @@
                          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" 
                          alt="Profile Picture">
                     
-                    <!-- Dark Pastel Clown Badge Overlay -->
                     <span class="absolute -bottom-2 -right-2 bg-[#3b1c27] text-[#f2a6b4] text-xl w-9 h-9 flex items-center justify-center rounded-xl border border-[#7a3b4f] shadow-sm">
                         🤡
                     </span>
                 </div>
 
                 <!-- NAME & TITLE -->
-                <!-- ✏️ EDIT YOUR NAME HERE -->
                 <h1 class="text-3xl sm:text-4xl font-bold text-[#f2a6b4] tracking-wide">
                     LuvCoreLuLu
                 </h1>
                 
-                <!-- ✏️ EDIT PRONOUNS / SUBTITLE HERE -->
                 <p class="text-[#c397d8] font-medium text-sm mt-1 mb-4">
                     ✨ she/they • dark pastel ringmaster ✨
                 </p>
 
                 <!-- BIO BOX -->
-                <!-- ✏️ EDIT YOUR BIO HERE -->
                 <div class="bg-[#15131f] rounded-2xl p-4 border border-[#302a45] text-slate-300 text-sm leading-relaxed w-full text-left shadow-inner">
                     Step into my quiet carnival! 🎪 Artist, pixel enthusiast, and lover of moody dark pastel clowncore aesthetics. Welcome to my personal corner of the web! 🍿🖤
                 </div>
 
-                <!-- FOOTER DECORATION (Visible on PC side) -->
-                <div class="hidden md:flex items-center gap-2 mt-6 text-xs text-[#8d79a5] font-medium">
+                <!-- FOOTER DECORATION (PC View) -->
+                <div id="pc-footer" class="hidden md:flex items-center gap-2 mt-6 text-xs text-[#8d79a5] font-medium">
                     <span>🍿</span>
-                    <span>Dark Circus Edition</span>
+                    <span>© 2026 LuvCore</span>
                     <span>🎪</span>
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Social Links List (PC: 7 Cols / Mobile: Full Width) -->
-            <div class="md:col-span-7 space-y-3.5 w-full">
+            <!-- RIGHT COLUMN: Social Links List -->
+            <div id="right-col" class="md:col-span-7 space-y-3.5 w-full">
                 
-                <!-- LINK 1: SOCIALS (REPLACES INSTAGRAM) -->
+                <!-- LINK 1: SOCIALS HUB -->
                 <a href="doc/socials.html" 
                    class="group flex items-center justify-between bg-[#291a24] hover:bg-[#382230] text-[#f5b8c4] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#593043] shadow-sm hover:border-[#854562] transition-all duration-200">
                    <div class="flex items-center gap-3">
-                       <span class="text-xl group-hover:scale-110 transition-transform">🌐</span>
+                       <span class="text-xl group-hover:scale-110 transition-transform">🎪</span>
                        <span>Socials</span>
                    </div>
                    <span class="text-xs text-[#a3768b] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
 
-                <!-- LINK 2: TWITTER / X (EDITABLE) -->
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
-                   class="group flex items-center justify-between bg-[#192230] hover:bg-[#202d40] text-[#9bbfe8] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#304766] shadow-sm hover:border-[#466a99] transition-all duration-200">
+                <!-- LINK 2: THRONE -->
+                <a href="https://throne.com/luvcorelulu?size=n_40_n" target="_blank" rel="noopener noreferrer" 
+                   class="group flex items-center justify-between bg-[#291a22] hover:bg-[#382230] text-[#f2a6cd] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#593047] shadow-sm hover:border-[#85456c] transition-all duration-200">
                    <div class="flex items-center gap-3">
-                       <span class="text-xl group-hover:scale-110 transition-transform">🐦</span>
-                       <span>Twitter / X</span>
+                       <span class="text-xl group-hover:scale-110 transition-transform">👑</span>
+                       <span>Throne</span>
                    </div>
-                   <span class="text-xs text-[#6e8eb8] group-hover:translate-x-1 transition-transform">↗</span>
+                   <span class="text-xs text-[#a3768e] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
 
-                <!-- LINK 3: TIKTOK / VIDEOS (EDITABLE) -->
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" 
-                   class="group flex items-center justify-between bg-[#281b30] hover:bg-[#352340] text-[#d6a5f0] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#523366] shadow-sm hover:border-[#7b4d99] transition-all duration-200">
+                <!-- LINK 3: GITHUB -->
+                <a href="https://github.com/LuvCoreLuLu" target="_blank" rel="noopener noreferrer" 
+                   class="group flex items-center justify-between bg-[#1f1d2b] hover:bg-[#2b283b] text-[#cda5f0] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#423a5e] shadow-sm hover:border-[#675b91] transition-all duration-200">
                    <div class="flex items-center gap-3">
-                       <span class="text-xl group-hover:scale-110 transition-transform">🎬</span>
-                       <span>TikTok / Content</span>
+                       <span class="text-xl group-hover:scale-110 transition-transform">🐙</span>
+                       <span>GitHub</span>
                    </div>
-                   <span class="text-xs text-[#9d72b5] group-hover:translate-x-1 transition-transform">↗</span>
+                   <span class="text-xs text-[#9d89be] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
 
-                <!-- LINK 4: DISCORD SERVER (EDITABLE) -->
+                <!-- LINK 4: DISCORD SERVER -->
                 <a href="https://discord.com" target="_blank" rel="noopener noreferrer" 
                    class="group flex items-center justify-between bg-[#1d262a] hover:bg-[#253238] text-[#9ee0cb] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#324f46] shadow-sm hover:border-[#487567] transition-all duration-200">
                    <div class="flex items-center gap-3">
@@ -233,7 +207,7 @@
                    <span class="text-xs text-[#659e8d] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
 
-                <!-- LINK 5: EMAIL (EDITABLE) -->
+                <!-- LINK 5: EMAIL -->
                 <a href="mailto:your-email@example.com" 
                    class="group flex items-center justify-between bg-[#29261a] hover:bg-[#363220] text-[#ebd288] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#544d30] shadow-sm hover:border-[#807548] transition-all duration-200">
                    <div class="flex items-center gap-3">
@@ -247,134 +221,142 @@
 
         </div>
 
-        <!-- FOOTER DECORATION (Visible on Mobile) -->
-        <div class="mt-8 pt-4 border-t border-[#302a45] text-xs text-[#8d79a5] font-medium flex md:hidden justify-center items-center gap-2">
+        <!-- FOOTER DECORATION (Mobile View) -->
+        <div id="mobile-footer" class="mt-8 pt-4 border-t border-[#302a45] text-xs text-[#8d79a5] font-medium flex md:hidden justify-center items-center gap-2">
             <span>🍿</span>
-            <span>Dark Circus Edition</span>
+            <span>© 2026 LuvCore</span>
             <span>🎪</span>
         </div>
 
     </div>
 
-    <!-- LANYARD DISCORD SPOTIFY INTEGRATION SCRIPT -->
+    <!-- JAVASCRIPT: LANYARD SPOTIFY API + F9 DEBUG TOGGLE -->
     <script>
+        // 1. LIVE SPOTIFY SYNC (LANYARD API)
         const DISCORD_ID = "1496596136734228665";
-        let heartbeatInterval = null;
-        let currentTimestamps = null;
         let progressInterval = null;
 
-        // Connect to Lanyard API via WebSocket for real-time live updates
-        function connectLanyard() {
-            const ws = new WebSocket("wss://api.lanyard.rest/socket");
-
-            ws.onopen = () => {
-                ws.send(JSON.stringify({
-                    op: 2,
-                    d: { subscribe_to_id: DISCORD_ID }
-                }));
-            };
-
-            ws.onmessage = (event) => {
-                const response = JSON.parse(event.data);
-                if (response.op === 1) { // Heartbeat Hello
-                    heartbeatInterval = setInterval(() => {
-                        ws.send(JSON.stringify({ op: 3 }));
-                    }, response.d.heartbeat_interval);
-                } else if (response.t === "INIT_STATE" || response.t === "PRESENCE_UPDATE") {
-                    updateSpotifyUI(response.d);
-                }
-            };
-
-            ws.onclose = () => {
-                clearInterval(heartbeatInterval);
-                setTimeout(connectLanyard, 5000); // Reconnect if dropped
-            };
-        }
-
-        // Fetch immediate initial state via HTTP API so page displays instantly
-        async function fetchInitialSpotify() {
+        async function fetchLanyardData() {
             try {
                 const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
                 const data = await res.json();
                 if (data.success && data.data) {
                     updateSpotifyUI(data.data);
                 }
-            } catch (err) {
-                console.log("Initial Lanyard fetch failed:", err);
+            } catch (e) {
+                console.log("Lanyard fetch error:", e);
             }
         }
 
-        // Update Spotify UI DOM
-        function updateSpotifyUI(userData) {
-            const activeEl = document.getElementById('spotify-active');
-            const idleEl = document.getElementById('spotify-idle');
+        function updateSpotifyUI(lanyard) {
+            const trackEl = document.getElementById("spotify-track");
+            const artistEl = document.getElementById("spotify-artist");
+            const albumArtEl = document.getElementById("spotify-album-art");
+            const statusHeaderEl = document.getElementById("spotify-status-header");
+            const pulseEl = document.getElementById("spotify-pulse");
+            const dotEl = document.getElementById("spotify-dot");
+            const eqEl = document.getElementById("eq-container");
+            const linkEl = document.getElementById("spotify-link");
+            const progressContainer = document.getElementById("spotify-progress-container");
+            const progressBar = document.getElementById("spotify-progress-bar");
 
-            if (userData && userData.listening_to_spotify && userData.spotify) {
-                const spotify = userData.spotify;
-                document.getElementById('spotify-album-art').src = spotify.album_art_url;
-                document.getElementById('spotify-track-title').textContent = spotify.song;
-                document.getElementById('spotify-artist-name').textContent = spotify.artist;
-                document.getElementById('spotify-link').href = `https://open.spotify.com/track/${spotify.track_id}`;
+            if (lanyard.listening_to_spotify && lanyard.spotify) {
+                const spot = lanyard.spotify;
+                trackEl.textContent = spot.song;
+                artistEl.textContent = spot.artist;
+                albumArtEl.src = spot.album_art_url;
+                statusHeaderEl.textContent = "LISTENING TO SPOTIFY";
                 
-                activeEl.classList.remove('hidden');
-                activeEl.classList.add('flex');
-                idleEl.classList.add('hidden');
+                pulseEl.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1db954] opacity-75";
+                dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-[#1db954]";
+                eqEl.style.opacity = "1";
+                
+                if (spot.track_id) {
+                    linkEl.href = `https://open.spotify.com/track/${spot.track_id}`;
+                    linkEl.classList.remove("hidden");
+                }
 
-                currentTimestamps = spotify.timestamps;
-                startProgressBar();
+                progressContainer.classList.remove("hidden");
+                
+                if (progressInterval) clearInterval(progressInterval);
+                progressInterval = setInterval(() => {
+                    const now = Date.now();
+                    const total = spot.timestamps.end - spot.timestamps.start;
+                    const elapsed = now - spot.timestamps.start;
+                    const percent = Math.min(100, Math.max(0, (elapsed / total) * 100));
+                    progressBar.style.width = `${percent}%`;
+                }, 1000);
+
             } else {
-                activeEl.classList.add('hidden');
-                activeEl.classList.remove('flex');
-                idleEl.classList.remove('hidden');
-                clearInterval(progressInterval);
+                if (progressInterval) clearInterval(progressInterval);
+                trackEl.textContent = "Not listening right now";
+                artistEl.textContent = "Spotify offline / paused";
+                albumArtEl.src = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=150&q=80";
+                statusHeaderEl.textContent = "SPOTIFY IDLE";
+                
+                pulseEl.className = "hidden";
+                dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-slate-500";
+                eqEl.style.opacity = "0.2";
+                linkEl.classList.add("hidden");
+                progressContainer.classList.add("hidden");
             }
         }
 
-        // Smoothly update track progress bar
-        function startProgressBar() {
-            clearInterval(progressInterval);
-            if (!currentTimestamps || !currentTimestamps.start || !currentTimestamps.end) return;
-
-            progressInterval = setInterval(() => {
-                const now = Date.now();
-                const start = currentTimestamps.start;
-                const end = currentTimestamps.end;
-                const total = end - start;
-                const elapsed = now - start;
-                const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
-                
-                document.getElementById('spotify-progress').style.width = pct + '%';
-            }, 1000);
+        // Connect via WebSocket for real-time updates
+        function connectLanyardWS() {
+            const ws = new WebSocket("wss://api.lanyard.rest/socket");
+            ws.onopen = () => {
+                ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+            };
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
+                    updateSpotifyUI(data.d);
+                }
+            };
+            ws.onclose = () => setTimeout(connectLanyardWS, 5000);
         }
 
-        // Initialize on load
-        fetchInitialSpotify();
-        connectLanyard();
-    </script>
+        fetchLanyardData();
+        connectLanyardWS();
 
-    <!-- DEBUG TOGGLE SCRIPT (F9 KEY) -->
-    <script>
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F9') {
+        // 2. F9 DEBUG LAYOUT TOGGLE
+        let isForcedMobile = false;
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "F9") {
                 e.preventDefault();
-                const card = document.getElementById('main-card');
-                const toast = document.getElementById('debug-toast');
-                
-                // Trigger transition animation
-                card.classList.add('card-flip-anim');
-                
-                // Toggle mode halfway through the animation
-                setTimeout(() => {
-                    const isForced = card.classList.toggle('forced-mobile');
-                    if (toast) {
-                        toast.classList.toggle('hidden', !isForced);
-                    }
-                }, 250);
+                isForcedMobile = !isForcedMobile;
 
-                // Remove animation class after completion
-                setTimeout(() => {
-                    card.classList.remove('card-flip-anim');
-                }, 500);
+                const card = document.getElementById("main-card");
+                const grid = document.getElementById("grid-layout");
+                const leftCol = document.getElementById("left-col");
+                const badgeContainer = document.getElementById("badge-container");
+                const pcFooter = document.getElementById("pc-footer");
+                const mobileFooter = document.getElementById("mobile-footer");
+                const debugBadge = document.getElementById("debug-badge");
+
+                card.classList.add("animate-switch");
+                setTimeout(() => card.classList.remove("animate-switch"), 350);
+
+                if (isForcedMobile) {
+                    debugBadge.classList.remove("hidden");
+                    card.classList.remove("md:max-w-3xl", "lg:max-w-4xl");
+                    grid.classList.remove("md:grid-cols-12");
+                    leftCol.classList.remove("md:col-span-5", "md:text-left", "md:items-start");
+                    badgeContainer.classList.remove("md:justify-start");
+                    badgeContainer.classList.add("justify-center");
+                    pcFooter.classList.add("hidden");
+                    mobileFooter.classList.remove("hidden");
+                } else {
+                    debugBadge.classList.add("hidden");
+                    card.classList.add("md:max-w-3xl", "lg:max-w-4xl");
+                    grid.classList.add("md:grid-cols-12");
+                    leftCol.classList.add("md:col-span-5", "md:text-left", "md:items-start");
+                    badgeContainer.classList.add("md:justify-start");
+                    pcFooter.classList.remove("hidden");
+                    mobileFooter.classList.add("hidden");
+                }
             }
         });
     </script>
