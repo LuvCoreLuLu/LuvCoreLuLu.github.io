@@ -88,12 +88,62 @@
             🛠️ DEBUG MODE: FORCED MOBILE LAYOUT (F9)
         </div>
 
-        <!-- TOP DECORATIVE BADGE -->
-        <div class="flex justify-center md:justify-start mb-6">
-            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-sm tracking-wider shadow-sm">
+        <!-- HEADER TOP SECTION: BADGE + SPOTIFY WIDGET -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-6">
+            <!-- TOP DECORATIVE BADGE -->
+            <div class="inline-flex items-center gap-2 bg-[#2d1b27] text-[#f2a6b4] font-heading font-semibold px-4 py-1.5 rounded-full border border-[#6b3345] text-xs sm:text-sm tracking-wider shadow-sm flex-shrink-0">
                 <span>🎪</span>
                 <span>WELCOME TO THE TENT</span>
                 <span>🎈</span>
+            </div>
+
+            <!-- LIVE SPOTIFY WIDGET (LANYARD INTEGRATION) -->
+            <div id="spotify-widget" class="w-full sm:w-auto sm:max-w-xs md:max-w-sm bg-[#15131f] border border-[#352c4a] rounded-2xl p-2.5 sm:p-3 shadow-inner transition-all duration-300">
+                <!-- ACTIVE PLAYING STATE -->
+                <div id="spotify-active" class="hidden flex-col gap-2">
+                    <div class="flex items-center justify-between gap-2.5">
+                        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                            <div class="relative flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11">
+                                <img id="spotify-album-art" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover border border-[#48375e]" src="" alt="Album Art">
+                                <div class="absolute -bottom-1 -right-1 bg-[#121019] text-[#9ee0cb] text-xs p-0.5 rounded-full border border-[#352c4a]">
+                                    <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.377 0 12s5.376 12 12 12 12-5.377 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                                </div>
+                            </div>
+                            <div class="min-w-0 text-left flex-1">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[9px] font-bold uppercase tracking-wider text-[#9ee0cb] bg-[#1d332c] px-1.5 py-0.5 rounded-full border border-[#2d5247] whitespace-nowrap">Spotify</span>
+                                    <!-- Equalizer animation -->
+                                    <div class="flex items-end gap-0.5 h-2.5">
+                                        <span class="w-0.5 bg-[#9ee0cb] rounded-full animate-bounce h-full" style="animation-duration:0.6s"></span>
+                                        <span class="w-0.5 bg-[#9ee0cb] rounded-full animate-bounce h-2/3" style="animation-duration:0.8s"></span>
+                                        <span class="w-0.5 bg-[#9ee0cb] rounded-full animate-bounce h-4/5" style="animation-duration:0.5s"></span>
+                                    </div>
+                                </div>
+                                <div id="spotify-track-title" class="text-xs font-bold text-[#f2a6b4] truncate mt-0.5 max-w-[150px] sm:max-w-[160px]">Song Title</div>
+                                <div id="spotify-artist-name" class="text-[11px] text-[#c397d8] truncate max-w-[150px] sm:max-w-[160px]">Artist Name</div>
+                            </div>
+                        </div>
+                        <a id="spotify-link" href="#" target="_blank" rel="noopener noreferrer" title="Open in Spotify" class="flex-shrink-0 text-[#8d79a5] hover:text-[#9ee0cb] transition-colors p-1.5 bg-[#1e1b2b] rounded-lg border border-[#302a45]">
+                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.377 0 12s5.376 12 12 12 12-5.377 12-12S18.624 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141 C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                        </a>
+                    </div>
+                    <!-- Live Track Progress Bar -->
+                    <div class="w-full bg-[#1e1b2b] rounded-full h-1 overflow-hidden border border-[#302a45]">
+                        <div id="spotify-progress" class="bg-gradient-to-r from-[#9ee0cb] to-[#f2a6b4] h-full rounded-full transition-all duration-300 w-0"></div>
+                    </div>
+                </div>
+
+                <!-- IDLE / NOT LISTENING STATE -->
+                <div id="spotify-idle" class="flex items-center justify-between gap-3 text-xs text-[#8d79a5] py-0.5 px-1.5">
+                    <div class="flex items-center gap-2 min-w-0">
+                        <span class="text-base flex-shrink-0">🎧</span>
+                        <div class="text-left min-w-0">
+                            <p class="font-medium text-slate-300 text-[11px] truncate">Not playing Spotify right now</p>
+                            <p class="text-[9px] text-[#6d5b85] truncate">Connected via Discord Lanyard</p>
+                        </div>
+                    </div>
+                    <div class="w-2 h-2 rounded-full bg-[#4a3d61] animate-pulse flex-shrink-0"></div>
+                </div>
             </div>
         </div>
 
@@ -123,13 +173,13 @@
                 
                 <!-- ✏️ EDIT PRONOUNS / SUBTITLE HERE -->
                 <p class="text-[#c397d8] font-medium text-sm mt-1 mb-4">
-                    ✨ • she/they • ✨
+                    ✨ she/they • dark pastel ringmaster ✨
                 </p>
 
                 <!-- BIO BOX -->
                 <!-- ✏️ EDIT YOUR BIO HERE -->
                 <div class="bg-[#15131f] rounded-2xl p-4 border border-[#302a45] text-slate-300 text-sm leading-relaxed w-full text-left shadow-inner">
-                    Haii! Welcome to my silly little uuhh.. Card thingy!! :D Im LuLu i try to stream and i love playing games and sleeping >.> Here you can find where to find me! love you!!!
+                    Step into my quiet carnival! 🎪 Artist, pixel enthusiast, and lover of moody dark pastel clowncore aesthetics. Welcome to my personal corner of the web! 🍿🖤
                 </div>
 
                 <!-- FOOTER DECORATION (Visible on PC side) -->
@@ -143,12 +193,12 @@
             <!-- RIGHT COLUMN: Social Links List (PC: 7 Cols / Mobile: Full Width) -->
             <div class="md:col-span-7 space-y-3.5 w-full">
                 
-                <!-- LINK 1: INSTAGRAM (EDITABLE) -->
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+                <!-- LINK 1: SOCIALS (REPLACES INSTAGRAM) -->
+                <a href="doc/socials.html" 
                    class="group flex items-center justify-between bg-[#291a24] hover:bg-[#382230] text-[#f5b8c4] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#593043] shadow-sm hover:border-[#854562] transition-all duration-200">
                    <div class="flex items-center gap-3">
-                       <span class="text-xl group-hover:scale-110 transition-transform">📸</span>
-                       <span>Instagram</span>
+                       <span class="text-xl group-hover:scale-110 transition-transform">🌐</span>
+                       <span>Socials</span>
                    </div>
                    <span class="text-xs text-[#a3768b] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
@@ -205,6 +255,102 @@
         </div>
 
     </div>
+
+    <!-- LANYARD DISCORD SPOTIFY INTEGRATION SCRIPT -->
+    <script>
+        const DISCORD_ID = "1496596136734228665";
+        let heartbeatInterval = null;
+        let currentTimestamps = null;
+        let progressInterval = null;
+
+        // Connect to Lanyard API via WebSocket for real-time live updates
+        function connectLanyard() {
+            const ws = new WebSocket("wss://api.lanyard.rest/socket");
+
+            ws.onopen = () => {
+                ws.send(JSON.stringify({
+                    op: 2,
+                    d: { subscribe_to_id: DISCORD_ID }
+                }));
+            };
+
+            ws.onmessage = (event) => {
+                const response = JSON.parse(event.data);
+                if (response.op === 1) { // Heartbeat Hello
+                    heartbeatInterval = setInterval(() => {
+                        ws.send(JSON.stringify({ op: 3 }));
+                    }, response.d.heartbeat_interval);
+                } else if (response.t === "INIT_STATE" || response.t === "PRESENCE_UPDATE") {
+                    updateSpotifyUI(response.d);
+                }
+            };
+
+            ws.onclose = () => {
+                clearInterval(heartbeatInterval);
+                setTimeout(connectLanyard, 5000); // Reconnect if dropped
+            };
+        }
+
+        // Fetch immediate initial state via HTTP API so page displays instantly
+        async function fetchInitialSpotify() {
+            try {
+                const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+                const data = await res.json();
+                if (data.success && data.data) {
+                    updateSpotifyUI(data.data);
+                }
+            } catch (err) {
+                console.log("Initial Lanyard fetch failed:", err);
+            }
+        }
+
+        // Update Spotify UI DOM
+        function updateSpotifyUI(userData) {
+            const activeEl = document.getElementById('spotify-active');
+            const idleEl = document.getElementById('spotify-idle');
+
+            if (userData && userData.listening_to_spotify && userData.spotify) {
+                const spotify = userData.spotify;
+                document.getElementById('spotify-album-art').src = spotify.album_art_url;
+                document.getElementById('spotify-track-title').textContent = spotify.song;
+                document.getElementById('spotify-artist-name').textContent = spotify.artist;
+                document.getElementById('spotify-link').href = `https://open.spotify.com/track/${spotify.track_id}`;
+                
+                activeEl.classList.remove('hidden');
+                activeEl.classList.add('flex');
+                idleEl.classList.add('hidden');
+
+                currentTimestamps = spotify.timestamps;
+                startProgressBar();
+            } else {
+                activeEl.classList.add('hidden');
+                activeEl.classList.remove('flex');
+                idleEl.classList.remove('hidden');
+                clearInterval(progressInterval);
+            }
+        }
+
+        // Smoothly update track progress bar
+        function startProgressBar() {
+            clearInterval(progressInterval);
+            if (!currentTimestamps || !currentTimestamps.start || !currentTimestamps.end) return;
+
+            progressInterval = setInterval(() => {
+                const now = Date.now();
+                const start = currentTimestamps.start;
+                const end = currentTimestamps.end;
+                const total = end - start;
+                const elapsed = now - start;
+                const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+                
+                document.getElementById('spotify-progress').style.width = pct + '%';
+            }, 1000);
+        }
+
+        // Initialize on load
+        fetchInitialSpotify();
+        connectLanyard();
+    </script>
 
     <!-- DEBUG TOGGLE SCRIPT (F9 KEY) -->
     <script>
