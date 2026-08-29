@@ -1,3 +1,3 @@
 # LuvCoreLuLu.github.io
 
-Just a card
+Just a card :>
