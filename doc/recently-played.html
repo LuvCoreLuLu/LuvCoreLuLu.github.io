@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎪 LuvCoreLuLu • Recently Played 🎪</title>
+    <title>🎪 • Activity Hub 🎪</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -56,7 +56,7 @@
         <!-- HEADER WITH BACK BUTTON -->
         <div class="flex items-center justify-between mb-6 border-b border-[#302a45]/60 pb-4">
             <a href="../index.html" class="inline-flex items-center gap-2 bg-[#2d1b27] hover:bg-[#3d2435] text-[#f2a6b4] font-heading font-semibold px-4 py-2 rounded-full border border-[#6b3345] text-xs sm:text-sm tracking-wider shadow-sm transition-all">
-                <span>👈</span>
+                <span>⤶</span>
                 <span>Back to Tent</span>
             </a>
             <div class="flex items-center gap-3">
@@ -185,8 +185,8 @@
         async function loadDatabaseFiles() {
             try {
                 const [musicRes, gamesRes] = await Promise.all([
-                    fetch('../DB/Music.json').catch(() => null),
-                    fetch('../DB/Games.json').catch(() => null)
+                    fetch('../assets/DB/Music.json').catch(() => null),
+                    fetch('../assets/DB/Games.json').catch(() => null)
                 ]);
 
                 if (musicRes && musicRes.ok) {
