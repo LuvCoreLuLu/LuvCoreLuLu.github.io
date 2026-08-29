@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎪 LuvCoreLuLu • Creative Portfolio & Video Showcase 🎪</title>
+    <title>🎪 • Portfolio 🎪</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -95,14 +95,11 @@
             <span>Back to Tent</span>
         </a>
 
-        <div class="flex items-center gap-2">
+        <!-- DEV ONLY CONTROLS (Hidden by default, press F9 to toggle) -->
+        <div id="dev-controls" class="hidden items-center gap-2">
             <button id="open-add-media-btn" class="bg-[#2a1e38] hover:bg-[#3c2954] text-[#c397d8] border border-[#523870] font-heading text-xs px-3.5 py-1.5 rounded-full flex items-center gap-1.5 transition-all shadow-sm">
                 <span>➕</span> <span>Add Custom Media</span>
             </button>
-            <div class="inline-flex items-center gap-2 bg-[#1d1929] text-[#c397d8] px-3.5 py-1.5 rounded-full border border-[#403457] text-xs font-heading font-medium">
-                <span id="scan-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span id="auto-scan-status">Scanning assets/img & assets/media...</span>
-            </div>
         </div>
     </header>
 
@@ -114,10 +111,10 @@
             <span>🎪</span>
         </div>
         <h1 class="text-3xl sm:text-5xl font-bold text-[#f2a6b4] tracking-wide">
-            Welcome to My Portfolio
+            Welcome to My Portfolio!!
         </h1>
         <p class="text-[#c397d8] font-medium text-xs sm:text-base mt-2 max-w-xl mx-auto">
-            Drag, click, or use controls to browse through my renders, lighting studies, and video animations.
+            Drag, click, or use controls to browse through my renders and animations!!
         </p>
     </div>
 
@@ -208,13 +205,14 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             <div class="lg:col-span-2 bg-[#15131f] border border-[#302a45] rounded-2xl p-5 text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 shadow-inner">
                 <p>
-                    Hey there! I'm <strong class="text-[#f2a6b4]">LuvCoreLuLu</strong>, a 3D artist, animator, and visual designer crafting dark-pastel visuals, clowncore aesthetics, atmospheric lighting, and animated loops.
+                    Hey there! I'm <strong class="text-[#f2a6b4]">LuLu</strong>. I'm a 3D artist/animator & wanna be game designer! i make animation in alot of software like..
                 </p>
                 <p>
-                    My workflow blends Source Filmmaker, Cinema 4D, Blender, Unreal Engine, and motion design software to create eerie yet adorable character posters, surreal world-building, and high-energy 3D video clips.
+                    Source Filmmaker, Cinema 4D, Blender, Unreal Engine! i tend to jump in between them but the favriote of choise would be SFM or source filmaker due to it being the one i first started out with
                 </p>
                 <p class="text-xs text-[#c397d8] italic pt-2 border-t border-[#292238]">
-                    ✨ Open for art collaborations, 3D commissions, video loops, and custom poster work! ✨
+                    ✨ Open for collaborations, 3D commissions, video loops, and custom poster work! ✨
+                    if your intrest you can go here! <a href="socials.html">Click me</a>
                 </p>
             </div>
 
@@ -229,7 +227,7 @@
                 </div>
                 <div class="flex items-center justify-between text-xs sm:text-sm text-slate-300">
                     <span>Aesthetic Style</span>
-                    <span class="text-[#f2a6b4] font-semibold">Dark Pastel / Clowncore</span>
+                    <span class="text-[#f2a6b4] font-semibold">Robotic/animatronics</span>
                 </div>
                 <div class="flex items-center justify-between text-xs sm:text-sm text-slate-300">
                     <span>Asset Scan Paths</span>
@@ -254,13 +252,10 @@
             <h2 class="text-2xl sm:text-3xl font-bold text-[#f2a6b4] font-heading">
                 Software I Use
             </h2>
-            <p class="text-slate-400 text-xs sm:text-sm mt-1">
-                Official transparent brand logos with automatic local path <code class="bg-[#13111c] text-[#f2a6b4] px-1.5 py-0.5 rounded border border-[#3c2954]">assets/icons/</code> support
-            </p>
         </div>
 
-        <!-- FOLDER PATH HELP BANNER TOGGLE -->
-        <div class="mb-6 bg-[#151322] border border-[#392c4f] rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-heading">
+        <!-- DEV-ONLY FOLDER PATH HELP BANNER TOGGLE (Hidden by default, press F9 to toggle) -->
+        <div id="dev-icon-banner" class="hidden mb-6 bg-[#151322] border border-[#392c4f] rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-heading">
             <div class="flex items-center gap-2.5">
                 <span class="text-xl">📁</span>
                 <div>
@@ -270,7 +265,7 @@
             </div>
             <button id="btn-toggle-icon-guide" class="px-3 py-1.5 bg-[#281b36] hover:bg-[#38244c] text-[#f2a6b4] border border-[#5d3b75] rounded-xl transition-all shrink-0">
                 View File Names
-            </button>
+            </button> 
         </div>
 
         <!-- HIDDEN ICON GUIDE BOX -->
@@ -448,15 +443,25 @@
         const spinner = document.getElementById("wheel-spinner");
         const emptyState = document.getElementById("wheel-empty");
         const gridView = document.getElementById("grid-view");
-        const autoScanStatus = document.getElementById("auto-scan-status");
-        const scanDot = document.getElementById("scan-dot");
         const statMediaCount = document.getElementById("stat-media-count");
         const itemCounter = document.getElementById("item-counter");
         const itemTypeBadge = document.getElementById("item-type-badge");
         const itemTitle = document.getElementById("item-title");
         const soundIcon = document.getElementById("sound-icon");
+        const devControls = document.getElementById("dev-controls");
+        const devIconBanner = document.getElementById("dev-icon-banner");
 
-        // Software logo fallbacks (Local paths -> High-Res SVGs & Data URIs -> Styled Badge Fallback)
+        // KEYBOARD SHORTCUT: F9 TOGGLES DEV CONTROLS & HELP BANNER
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "F9") {
+                e.preventDefault();
+                devControls.classList.toggle("hidden");
+                devControls.classList.toggle("flex");
+                devIconBanner.classList.toggle("hidden");
+            }
+        });
+
+        // Software logo fallbacks
         const SOFTWARE_LOGOS = {
             sfm: {
                 label: "SFM",
@@ -535,7 +540,6 @@
                         const path = sources[sourceIndex++];
                         img.src = path;
                     } else {
-                        // If all image sources fail, create an elegant fallback badge
                         img.onerror = null;
                         const parent = img.parentElement;
                         if (parent) {
@@ -578,8 +582,6 @@
         }
 
         async function loadAllMedia() {
-            autoScanStatus.textContent = "Scanning assets/img & assets/media...";
-            
             const results = await Promise.all([
                 ...IMG_FOLDERS.map(f => fetchGitHubFolder(f)),
                 ...MEDIA_FOLDERS.map(f => fetchGitHubFolder(f))
@@ -589,12 +591,8 @@
 
             if (discovered.length > 0) {
                 allMediaList = discovered;
-                autoScanStatus.textContent = `Auto-synced: ${discovered.length} item(s) found!`;
-                scanDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
             } else {
                 allMediaList = [...DEFAULT_ITEMS];
-                autoScanStatus.textContent = "Portfolio gallery active (Sample mode)";
-                scanDot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse";
             }
 
             applyFilter();
@@ -685,7 +683,6 @@
                     </div>
                 `;
 
-                // Play video on grid hover
                 if (item.type === 'video') {
                     const videoEl = gridItem.querySelector('video');
                     gridItem.addEventListener('mouseenter', () => videoEl && videoEl.play().catch(() => {}));
@@ -724,7 +721,6 @@
                     card.classList.add("active-card");
                     card.style.borderColor = "#f2a6b4";
                     
-                    // Auto play video on active card
                     if (videoEl) {
                         videoEl.muted = isMuted;
                         videoEl.play().catch(() => {});
@@ -733,14 +729,12 @@
                     card.classList.remove("active-card");
                     card.style.borderColor = "#5e2d3e";
                     
-                    // Pause non-active videos
                     if (videoEl) {
                         videoEl.pause();
                     }
                 }
             });
 
-            // Update banner status
             if (filteredMediaList[activeIndex]) {
                 const cur = filteredMediaList[activeIndex];
                 itemCounter.textContent = `${activeIndex + 1} / ${filteredMediaList.length}`;
@@ -802,14 +796,12 @@
         document.getElementById("btn-prev").addEventListener("click", () => setActiveIndex(activeIndex - 1));
         document.getElementById("btn-next").addEventListener("click", () => setActiveIndex(activeIndex + 1));
 
-        // Sound Mute/Unmute Toggle
         document.getElementById("btn-sound-toggle").addEventListener("click", () => {
             isMuted = !isMuted;
             soundIcon.textContent = isMuted ? "🔇" : "🔊";
             updateCoverflowTransforms();
         });
 
-        // Autoplay toggle
         const pauseBtn = document.getElementById("btn-pause");
         pauseBtn.addEventListener("click", () => {
             autoRotate = !autoRotate;
