@@ -1,5 +1,16 @@
 [
   {
+    "ID": 1,
+    "name": "VRChat",
+    "count": 0,
+    "total_minutes": 1,
+    "details": "Total Playtime: 1m",
+    "first_played": "2026-08-29 03:29",
+    "latest_played": "2026-08-29 03:29",
+    "url": "https://store.steampowered.com/search/?term=VRChat",
+    "icon": "🎮"
+  },
+  {
     "ID": 0,
     "name": "Standable: Full Body Estimation",
     "count": 0,
