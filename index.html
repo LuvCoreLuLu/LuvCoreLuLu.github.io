@@ -192,12 +192,12 @@
                    <span class="text-xs text-[#9d89be] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
 
-                <!-- LINK 4: DISCORD SERVER -->
-                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" 
+                <!-- LINK 4: RECENTLY PLAYED (NEW HUB PAGE) -->
+                <a href="doc/recently-played.html" 
                    class="group flex items-center justify-between bg-[#1d262a] hover:bg-[#253238] text-[#9ee0cb] font-heading font-medium text-base sm:text-lg py-3.5 px-5 rounded-2xl border border-[#324f46] shadow-sm hover:border-[#487567] transition-all duration-200">
                    <div class="flex items-center gap-3">
-                       <span class="text-xl group-hover:scale-110 transition-transform">💬</span>
-                       <span>Discord Community</span>
+                       <span class="text-xl group-hover:scale-110 transition-transform">🎮</span>
+                       <span>Recently Played</span>
                    </div>
                    <span class="text-xs text-[#659e8d] group-hover:translate-x-1 transition-transform">↗</span>
                 </a>
@@ -225,28 +225,59 @@
 
     </div>
 
-    <!-- JAVASCRIPT: LANYARD SPOTIFY API + F9 DEBUG TOGGLE -->
+    <!-- JAVASCRIPT: DUAL LIVE SPOTIFY FETCH (LAST.FM & LANYARD) -->
     <script>
-        // Note: For live Discord/Spotify presence sync, ensure the Discord user ID is joined to Lanyard (https://discord.gg/lanyard)
+        const LASTFM_USERNAME = ""; 
+        const LASTFM_API_KEY = "";  
         const DISCORD_ID = "1496596136734228665";
 
-        async function fetchLanyardData() {
+        async function fetchLivePresence() {
+            if (LASTFM_USERNAME && LASTFM_API_KEY) {
+                try {
+                    const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&format=json&limit=1`;
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    
+                    const track = data?.recenttracks?.track?.[0];
+                    const isNowPlaying = track?.['@attr']?.nowplaying === 'true';
+
+                    if (isNowPlaying && track) {
+                        updateLiveUI({
+                            song: track.name,
+                            artist: track.artist['#text'],
+                            albumArt: track.image?.[2]?.['#text'] || track.image?.[1]?.['#text'],
+                            link: track.url
+                        });
+                        return;
+                    }
+                } catch (e) {
+                    console.log("Last.fm fetch error:", e);
+                }
+            }
+
             try {
                 const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-                if (!res.ok) throw new Error("API response not ok");
+                if (!res.ok) throw new Error("API error");
                 const data = await res.json();
-                if (data.success && data.data) {
-                    updateSpotifyUI(data.data);
-                } else {
-                    setOfflineUI();
+                
+                if (data.success && data.data && data.data.listening_to_spotify && data.data.spotify) {
+                    const spot = data.data.spotify;
+                    updateLiveUI({
+                        song: spot.song,
+                        artist: spot.artist,
+                        albumArt: spot.album_art_url,
+                        link: spot.track_id ? `https://open.spotify.com/track/${spot.track_id}` : null
+                    });
+                    return;
                 }
             } catch (e) {
                 console.log("Lanyard fetch error:", e);
-                setOfflineUI();
             }
+
+            setOfflineUI();
         }
 
-        function updateSpotifyUI(lanyard) {
+        function updateLiveUI({ song, artist, albumArt, link }) {
             const trackEl = document.getElementById("spotify-track");
             const artistEl = document.getElementById("spotify-artist");
             const albumArtEl = document.getElementById("spotify-album-art");
@@ -256,36 +287,31 @@
             const eqEl = document.getElementById("eq-container");
             const linkEl = document.getElementById("spotify-link");
 
-            if (lanyard && lanyard.listening_to_spotify && lanyard.spotify) {
-                const spot = lanyard.spotify;
-                trackEl.textContent = spot.song || "Listening on Spotify";
-                
-                if (spot.artist) {
-                    artistEl.textContent = spot.artist;
-                    artistEl.classList.remove("hidden");
-                } else {
-                    artistEl.classList.add("hidden");
-                }
-
-                if (spot.album_art_url) {
-                    albumArtEl.src = spot.album_art_url;
-                }
-                
-                statusHeaderEl.textContent = "Listening Now";
-                statusHeaderEl.classList.replace("text-slate-400", "text-[#1db954]");
-                
-                pulseEl.classList.remove("hidden");
-                dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-[#1db954]";
-                eqEl.classList.remove("hidden");
-                
-                if (spot.track_id) {
-                    linkEl.href = `https://open.spotify.com/track/${spot.track_id}`;
-                    linkEl.classList.remove("hidden");
-                } else {
-                    linkEl.classList.add("hidden");
-                }
+            trackEl.textContent = song || "Listening on Spotify";
+            
+            if (artist) {
+                artistEl.textContent = artist;
+                artistEl.classList.remove("hidden");
             } else {
-                setOfflineUI();
+                artistEl.classList.add("hidden");
+            }
+
+            if (albumArt) {
+                albumArtEl.src = albumArt;
+            }
+            
+            statusHeaderEl.textContent = "Listening Now";
+            statusHeaderEl.className = "text-[10px] font-heading font-semibold uppercase tracking-wider text-[#1db954] truncate";
+            
+            pulseEl.classList.remove("hidden");
+            dotEl.className = "relative inline-flex rounded-full h-2 w-2 bg-[#1db954]";
+            eqEl.classList.remove("hidden");
+            
+            if (link) {
+                linkEl.href = link;
+                linkEl.classList.remove("hidden");
+            } else {
+                linkEl.classList.add("hidden");
             }
         }
 
@@ -311,31 +337,9 @@
             linkEl.classList.add("hidden");
         }
 
-        // Connect via WebSocket for real-time presence updates
-        function connectLanyardWS() {
-            try {
-                const ws = new WebSocket("wss://api.lanyard.rest/socket");
-                ws.onopen = () => {
-                    ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
-                };
-                ws.onmessage = (event) => {
-                    const data = JSON.parse(event.data);
-                    if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-                        updateSpotifyUI(data.d);
-                    }
-                };
-                ws.onerror = () => setOfflineUI();
-                ws.onclose = () => setTimeout(connectLanyardWS, 10000);
-            } catch(e) {
-                console.log("WS Error:", e);
-                setOfflineUI();
-            }
-        }
+        fetchLivePresence();
+        setInterval(fetchLivePresence, 10000);
 
-        fetchLanyardData();
-        connectLanyardWS();
-
-        // F9 DEBUG LAYOUT TOGGLE
         let isForcedMobile = false;
 
         window.addEventListener("keydown", (e) => {
