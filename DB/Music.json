@@ -1,5 +1,15 @@
 [
   {
+    "ID": 0,
+    "title": "SVITEN",
+    "artist": "Sticky; 01an",
+    "count": 3,
+    "first_listened": "2026-08-29 03:24",
+    "latest_listened": "2026-08-29 06:57",
+    "cover": "https://i.scdn.co/image/ab67616d0000b273837588417b21051dd2cfaf75",
+    "url": "https://open.spotify.com/track/01hKARIp286ZDzQiawMha2"
+  },
+  {
     "ID": 8,
     "title": "Sweater Weather",
     "artist": "The Neighbourhood",
@@ -78,15 +88,5 @@
     "latest_listened": "2026-08-29 05:18",
     "cover": "https://i.scdn.co/image/ab67616d0000b2735cb0258c29ecc129e5446eae",
     "url": "https://open.spotify.com/track/0I2BCIvlzrb6Iix9hAbQFF"
-  },
-  {
-    "ID": 0,
-    "title": "SVITEN",
-    "artist": "Sticky; 01an",
-    "count": 2,
-    "first_listened": "2026-08-29 03:24",
-    "latest_listened": "2026-08-29 03:25",
-    "cover": "https://i.scdn.co/image/ab67616d0000b273837588417b21051dd2cfaf75",
-    "url": "https://open.spotify.com/track/01hKARIp286ZDzQiawMha2"
   }
 ]
