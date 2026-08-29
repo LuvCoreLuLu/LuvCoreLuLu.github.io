@@ -1,5 +1,16 @@
 [
   {
+    "ID": 0,
+    "name": "Standable: Full Body Estimation",
+    "count": 1,
+    "total_minutes": 15,
+    "details": "Total Playtime: 15m",
+    "first_played": "2026-08-29 03:28",
+    "latest_played": "2026-08-29 05:18",
+    "url": "https://store.steampowered.com/search/?term=Standable%3A%20Full%20Body%20Estimation",
+    "icon": "🎮"
+  },
+  {
     "ID": 1,
     "name": "VRChat",
     "count": 2,
@@ -8,17 +19,6 @@
     "first_played": "2026-08-29 03:29",
     "latest_played": "2026-08-29 05:08",
     "url": "https://store.steampowered.com/search/?term=VRChat",
-    "icon": "🎮"
-  },
-  {
-    "ID": 0,
-    "name": "Standable: Full Body Estimation",
-    "count": 0,
-    "total_minutes": 5,
-    "details": "Total Playtime: 5m",
-    "first_played": "2026-08-29 03:28",
-    "latest_played": "2026-08-29 04:50",
-    "url": "https://store.steampowered.com/search/?term=Standable%3A%20Full%20Body%20Estimation",
     "icon": "🎮"
   }
 ]
